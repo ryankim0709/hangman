@@ -45,15 +45,7 @@ export default function App() {
       )}
 
       <div class="flex mt-2 flex-row w-2/5 justify-around">
-        <input
-          class="border rounded w-1/2 text-gray-700"
-          type="text"
-          placeholder="Guess"
-          value={guess}
-          onChange={(event) => {
-            setGuess(event.target.value);
-          }}
-        />
+       
         {!word && (
           <button
             onClick={() => {
@@ -76,6 +68,17 @@ export default function App() {
           </button>
         )}
         {word && (
+          <div style={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+           <input
+          class="border rounded w-1/2 text-gray-700"
+          style={{ marginRight: 10 }}
+          type="text"
+          placeholder="Guess"
+          value={guess}
+          onChange={(event) => {
+            setGuess(event.target.value);
+          }}
+        />
           <button
             onClick={() => {
               checkGuess(guess);
@@ -83,6 +86,7 @@ export default function App() {
           >
             Guess
           </button>
+          </div>
         )}
       </div>
       <div class="mt-1">
