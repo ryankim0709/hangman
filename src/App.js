@@ -6,7 +6,8 @@ export default function App() {
   const [guess, setGuess] = useState("");
   const [numGuesses, setNumGuesses] = useState(0);
   const [currState, setCurrState] = useState("");
-  function checkGuess(guess) {
+
+  const checkGuess = (guess) => {
     var currstatus = currState;
     if (word.includes(guess)) {
       for (var i = 0; i < word.length - guess.length + 1; i++) {
@@ -37,6 +38,7 @@ export default function App() {
     }
     setGuess("");
   }
+  
   return (
     <div className="container">
       {!word && (
