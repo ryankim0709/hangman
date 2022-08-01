@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./app.css";
 
 export default function App() {
   const [word, setWord] = useState("");
@@ -37,61 +38,63 @@ export default function App() {
     setGuess("");
   }
   return (
-    <div class="flex items-center justify-center flex-col">
+    <div className="container">
+      {!word && (
+        <button
+          onClick={() => {
+            fetch("https://random-word-api.herokuapp.com/word")
+              .then((res) => res.json())
+              .then((word) => {
+                console.log(word[0]);
+                setWord(word[0]);
+                setNumGuesses(0);
+
+                var temp = [];
+                for (var i = 0; i < word[0].length; i++) {
+                  temp.push("_ ");
+                }
+                setCurrState(temp);
+              });
+          }}
+        >
+          Play new game
+        </button>
+      )}
       {word && (
-        <div class="flex mt-1 border-4">
-          <img src={require(`./images/stage${numGuesses}.png`)} />
+        <div className="container game">
+          <div>
+            <img src={require(`./images/stage${numGuesses}.png`)} />
+          </div>
+          <div
+            style={{
+              width: "50%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <input
+              style={{ marginRight: 10 }}
+              type="text"
+              placeholder="Guess"
+              value={guess}
+              onChange={(event) => {
+                setGuess(event.target.value);
+              }}
+            />
+            <button
+              onClick={() => {
+                checkGuess(guess);
+              }}
+            >
+              Guess
+            </button>
+          </div>
+          <div>
+            <text>{currState}</text>
+          </div>
         </div>
       )}
-
-      <div class="flex mt-2 flex-row w-2/5 justify-around">
-       
-        {!word && (
-          <button
-            onClick={() => {
-              fetch("https://random-word-api.herokuapp.com/word")
-                .then((res) => res.json())
-                .then((word) => {
-                  console.log(word[0]);
-                  setWord(word[0]);
-                  setNumGuesses(0);
-
-                  var temp = [];
-                  for (var i = 0; i < word[0].length; i++) {
-                    temp.push("_ ");
-                  }
-                  setCurrState(temp);
-                });
-            }}
-          >
-            Play new game
-          </button>
-        )}
-        {word && (
-          <div style={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-           <input
-          class="border rounded w-1/2 text-gray-700"
-          style={{ marginRight: 10 }}
-          type="text"
-          placeholder="Guess"
-          value={guess}
-          onChange={(event) => {
-            setGuess(event.target.value);
-          }}
-        />
-          <button
-            onClick={() => {
-              checkGuess(guess);
-            }}
-          >
-            Guess
-          </button>
-          </div>
-        )}
-      </div>
-      <div class="mt-1">
-        <text>{currState}</text>
-      </div>
     </div>
   );
 }
