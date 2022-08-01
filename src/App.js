@@ -65,14 +65,7 @@ export default function App() {
           <div>
             <img src={require(`./images/stage${numGuesses}.png`)} />
           </div>
-          <div
-            style={{
-              width: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className="container input">
             <input
               style={{ marginRight: 10 }}
               type="text"
